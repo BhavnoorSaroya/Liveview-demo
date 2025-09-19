@@ -103,3 +103,95 @@
 [data-phx-session], [data-phx-teleported-src] { display: contents }
 
 /* This file is for your main application CSS */
+/* Container */
+.retro-container {
+  background-color: #111;
+  color: #0ff;
+  font-family: 'Press Start 2P', monospace, sans-serif;
+  padding: 2rem;
+  border: 4px solid #0ff;
+  border-radius: 12px;
+  max-width: 800px;
+  margin: 2rem auto;
+  text-align: center;
+  box-shadow: 0 0 20px #0ff;
+}
+
+/* Question header */
+.retro-question {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px #08f;
+}
+
+/* Answer buttons */
+.retro-answers {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.retro-button {
+  background-color: #222;
+  border: 2px solid #0ff;
+  padding: 1rem;
+  color: #0ff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 8px;
+}
+
+.retro-button:hover:not(:disabled) {
+  background-color: #0ff;
+  color: #111;
+}
+
+.retro-button.selected {
+  border-color: yellow;
+}
+
+.retro-button.correct {
+  background-color: #0f0;
+  border-color: #0f0;
+  color: #111;
+}
+
+.retro-button.incorrect {
+  background-color: #f00;
+  border-color: #f00;
+  color: #fff;
+}
+
+/* Result box */
+.retro-result {
+  margin-top: 2rem;
+  background: #000;
+  border: 2px dashed #0ff;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.answer-line {
+  margin: 0.5rem 0;
+}
+
+.highlight {
+  color: yellow;
+}
+
+.correct {
+  color: #0f0;
+  text-shadow: 0 0 5px #0f0;
+}
+
+.incorrect {
+  color: #f00;
+  text-shadow: 0 0 5px #f00;
+}
+
+.retro-waiting {
+  margin-top: 2rem;
+  font-style: italic;
+  color: #888;
+}
