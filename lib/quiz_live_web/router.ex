@@ -40,6 +40,7 @@ defmodule QuizLiveWeb.Router do
     pipe_through :browser
 
     live "/quiz", QuizLive, :index
+    live "/quiz_retro", QuizLiveRetro, :index
   end
 
 

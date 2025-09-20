@@ -76,61 +76,45 @@ defmodule QuizLiveWeb.QuizLive do
   end
 
   @impl true
-def render(assigns) do
-  ~H"""
-  <Layouts.app flash={@flash}>
-    <div id="quiz" class="retro-container">
-      <%= if @active_question do %>
+  def render(assigns) do
+    ~H"""
+    <Layouts.app flash={@flash}>
+      <div id="quiz">
+        <%= if @active_question do %>
 
-        <h2 class="retro-question"><%= @active_question.text %></h2>
+          <.header><%= @active_question.text %></.header>
 
-        <div class="retro-answers">
-          <%= for answer <- @active_question.answers do %>
-            <button
-              phx-click="select_answer"
-              phx-value-answer-id={answer.id}
-              disabled={@locked}
-              class={
-                [
-                  "retro-button",
-                  @locked && @selected_answer_id == answer.id && "selected",
-                  @published_correct_id && @published_correct_id == answer.id && "correct",
-                  @published_correct_id && @selected_answer_id == answer.id && @selected_answer_id != @published_correct_id && "incorrect"
-                ]
-              }
-            >
-              <%= answer.text %>
-            </button>
-          <% end %>
-        </div>
 
-        <%= if @published_correct_id do %>
-          <div class="retro-result">
-            <p class="answer-line">
-              Correct answer:
-              <span class="highlight">
-                <%= Enum.find(@active_question.answers, &(&1.id == @published_correct_id)).text %>
-              </span>
-            </p>
-            <p class="answer-line">
-              Your selection:
-              <%= if @selected_answer_id == @published_correct_id do %>
-                <span class="correct">✅ Correct!</span>
-              <% else %>
-                <span class="incorrect">❌ Incorrect</span>
-              <% end %>
-            </p>
+          <div class="answers">
+            <%= for answer <- @active_question.answers do %>
+              <.button
+                phx-click="select_answer"
+                phx-value-answer-id={answer.id}
+                disabled={@locked}
+                size="md"
+              >
+                <%= answer.text %>
+              </.button>
+            <% end %>
           </div>
+
+          <%= if @published_correct_id do %>
+            <div class="result">
+              <p>Correct answer: <%= Enum.find(@active_question.answers, &(&1.id == @published_correct_id)).text %></p>
+              <p>
+                Your selection:
+                <%= if @selected_answer_id == @published_correct_id, do: "✅ Correct!", else: "❌ Incorrect" %>
+              </p>
+            </div>
+          <% else %>
+            <p class="waiting">Waiting for the host to publish the answer...</p>
+          <% end %>
+
         <% else %>
-          <p class="retro-waiting">Waiting for the host to publish the answer...</p>
+          <p>No active question right now. Please wait.</p>
         <% end %>
-
-      <% else %>
-        <p class="retro-waiting">No active question right now. Please wait.</p>
-      <% end %>
-    </div>
-  </Layouts.app>
-  """
-end
-
+      </div>
+    </Layouts.app>
+    """
+  end
 end
